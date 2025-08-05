@@ -36,7 +36,7 @@ pip install -r requirements.txt
 ```
 ├── app/                                  # [WIP] Deployment repo using LlamaDeploy
 │   ├── backend/                          # Backend services
-│   └── frontend/                         # Autogen Stock Analyst App (UI & interaction logic)
+│   └── frontend/                         # ChainLit frontend
 ├── data/                                 # Source documents for RAG engine ingestion
 │   ├── books/                            # Book documents
 │   ├── context/                          # [WIP] Context data for memory recall
