@@ -34,17 +34,17 @@ pip install -r requirements.txt
 ---
 ## **Content**
 .
-├── app                                   <- [In work] Deployment Repository (LlamaDeploy)
-│   ├── backend
-│   ├── frontend                          <- Code book for autogen stock analyst app
-├── data                                  <- Document folders for RAG engine ingestion
-│   ├── books                             <- Books
-│   ├── context                           <- [In work] Context for memory recall
-│   ├── notes                             <- [In work] Notes for memory recall
-├── images                                <- Images
-├── notebooks                             <- Experimental notebooks, development codes
-│   ├── 1.01-jk-workflow.ipynb            <- [In work] Exploration of Events and Multi-Agent Workflows                              
-│   ├── 1.02-jk-tracing_agents.ipynb      <- Test LlamaTrace functionalities with individual Agent Workflows
-│   ├── 1.03-jk-digital_twin.ipynb        <- Test modify FunctionCallingAgent, Reflective Agent Workflow
-├── requirements.txt                      <- Dependencies
-├── README.md
+├── app/                                  # [WIP] Deployment repo using LlamaDeploy
+│   ├── backend/                          # Backend services
+│   └── frontend/                         # Autogen Stock Analyst App (UI & interaction logic)
+├── data/                                 # Source documents for RAG engine ingestion
+│   ├── books/                            # Book documents
+│   ├── context/                          # [WIP] Context data for memory recall
+│   └── notes/                            # [WIP] Notes used for memory recall
+├── images/                               # Image assets
+├── notebooks/                            # Experimental notebooks and development code
+│   ├── 1.01-jk-workflow.ipynb            # [WIP] Multi-agent workflow exploration via Event-driven design                              
+│   ├── 1.02-jk-tracing_agents.ipynb      # LlamaTrace testing on individual agent workflows
+│   └── 1.03-jk-digital_twin.ipynb        # Testing FunctionCallingAgent & ReflectiveAgent workflows
+├── requirements.txt                      # Python dependencies
+└── README.md                             # Project documentation
