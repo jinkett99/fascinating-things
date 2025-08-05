@@ -33,7 +33,7 @@ pip install -r requirements.txt
 
 ---
 ## **Content**
-.
+```
 ├── app/                                  # [WIP] Deployment repo using LlamaDeploy
 │   ├── backend/                          # Backend services
 │   └── frontend/                         # Autogen Stock Analyst App (UI & interaction logic)
@@ -48,3 +48,4 @@ pip install -r requirements.txt
 │   └── 1.03-jk-digital_twin.ipynb        # Testing FunctionCallingAgent & ReflectiveAgent workflows
 ├── requirements.txt                      # Python dependencies
 └── README.md                             # Project documentation
+```
