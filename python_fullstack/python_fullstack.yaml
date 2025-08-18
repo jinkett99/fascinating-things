@@ -1,0 +1,23 @@
+name: MyDeployment
+
+control-plane:
+  port: 8000
+
+message-queue:
+  type: redis
+  # what follows depends on what's in the docker compose file
+  host: redis
+  port: 6379
+
+default-service: function_calling_agent
+
+services:
+  function_calling_agent:
+    name: Function Calling Agent
+    source:
+      type: local
+      name: workflows
+    python-dependencies:
+      - llama-index>=0.11.0
+      - openai>=1.0.0
+    path: workflows/workflow:agent_workflow

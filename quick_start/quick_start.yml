@@ -1,0 +1,19 @@
+name: QuickStart
+
+control-plane:
+  port: 8000
+
+default-service: function_agent_workflow
+
+services:
+  function_agent_workflow:
+    name: Function Calling Agent
+    # We tell LlamaDeploy where to look for our workflow
+    source:
+      # In this case, we instruct LlamaDeploy to look in the local filesystem
+      type: local
+      # The path relative to this deployment config file where to look for the code. This assumes
+      # there's an src folder along with the config file containing the file workflow.py we created previously
+      name: ./src
+    # This assumes the file workflow.py contains a variable called `function_agent_workflow` containing our workflow instance
+    path: src/workflow:function_agent_workflow

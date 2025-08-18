@@ -1,0 +1,39 @@
+services:
+  redis:
+    image: redis:7
+    ports: ["6379:6379"]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  apiserver:
+    # LlamaDeploy API server, will run the workflows
+    image: llamaindex/llama-deploy:main
+    environment:
+      OPENAI_API_KEY: $OPENAI_API_KEY
+    ports:
+      - "4501:4501"
+    depends_on:
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: llamactl status
+      interval: 5s
+      timeout: 3s
+      retries: 5
+    volumes:
+      - ./:/opt/app
+    working_dir: /opt/app
+
+  deploy_workflows:
+    # Init container, it deploys python_fullstack.yaml and exits
+    image: llamaindex/llama-deploy:main
+    volumes:
+      - ./python_fullstack.yaml:/opt/app/python_fullstack.yaml
+    working_dir: /opt/app
+    depends_on:
+      apiserver:
+        condition: service_healthy
+    entrypoint: ["llamactl", "-s", "http://apiserver:4501", "-t", "60", "deploy", "python_fullstack.yaml"]
