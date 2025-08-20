@@ -106,9 +106,11 @@ Proposed fixes include upgrading the translate_document() function and improving
 
 5. **Conclusions and Future Works**
 
-As autonomous systems such as agentic applications—with function calling and transactional capabilities—carry higher risks and costs when exposed to adversarial attacks, it is important to build larger and more comprehensive test suites across multiple vulnerability categories. Future work should also focus on layering defense systems and safeguards to strengthen application resilience.
+Autonomous systems such as agentic applications—with function calling and transactional capabilities—carry higher risks and costs when they succumb to adversarial attacks. To mitigate this, it is important to develop a larger and more comprehensive test suite that covers multiple vulnerability categories. Future improvements should also include layered defense systems and safeguards to strengthen resilience.
 
-Since this project is still in an experimental phase, we designed a simplified benchmark for hypothetical scenarios and use cases, without focusing on modularity. As the project develops, we plan to improve in several areas. First, we aim to work on modularity of the codebase by isolating tools, prompt templates, and agent-building scripts. This will make the codebase more extendible and “plug and play,” simplifying additions, removals, maintenance, and testing. Second, we aim to expand the features of our testing and evaluation functions to produce more detailed and insightful evaluation outputs.
+As this project is still in an experimental phase, we focused on building a simplified benchmark for hypothetical scenarios and use cases, without emphasizing modularity. As the project matures, we plan to work on improving modularity in the codebase by isolating tools, prompt templates, and agent-building scripts. This will make the system more extendible and “plug and play,” allowing easier additions, removals, maintenance, and testing.
+
+We also aim to expand the features of our testing and evaluation functions to produce richer outputs. For example, generating statistics and structured feedback on results will provide deeper insights into performance. This will only be possible with a sufficiently large test suite combined with different scorers—whether heuristic, human, or LLM-based.
 
 ---
 ## **Setup Instructions**  
