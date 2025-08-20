@@ -1,4 +1,4 @@
-# Designing an Minimal System and Strategy to Red-Team Agentic Applications
+# Designing an minimal system and strategy to explore red-teaming of real-world agentic applications
 Business application: Evaluating a Research Assistant Chatbot used by consultants to prep briefing notes on companies.
 
 ![Image](../images/evaluation.png)
