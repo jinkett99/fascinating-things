@@ -66,6 +66,7 @@ Business application: Evaluating a Research Assistant Chatbot used by consultant
 ---
 ## **Diagnostic Findings & Proposed Fixes**
 1. **Evaluation of RAG Engine Performance**
+
 We evaluated the retrieval and generation capabilities of our RAG engine using four performance metrics: correctness, relevancy, faithfulness, and context similarity. Overall, the mean scores for correctness, relevancy, and faithfulness were near perfect, showing strong hybrid retrieval and answer generation capabilities.
 
 The faithfulness score was 1.0, suggesting that all claims in the responses were supported by the retrieved context. This raises the question of whether our system is truly free from hallucinations. The results are likely influenced by the simplicity of our simulated internal database and the fact that the LlamaIndex RAG Evaluation Pack was tested with direct and straightforward questions.
@@ -73,6 +74,7 @@ The faithfulness score was 1.0, suggesting that all claims in the responses were
 Context similarity was also excellent, showing that the model successfully retrieved context comparable to the generated ground truths. Looking ahead, we will need to create a more representative database and test with more complex and challenging questions. Frameworks like Giskard, which provide a broader suite of question types, will help us push the evaluation further.
 
 2. **Basic Functionality Testing**
+
 With the multi-faceted nature of evaluation, and to cultivate more relevant and meaningful assessments of briefing notes preparation, we evaluated the “Research Assistant” against criteria designed to match the precision and detail needed for high-quality consultant outputs.
 
 For the first test, we asked the system to generate a company briefing on Vertex Harbour. From the LlamaTrace output logs, we observed that the FunctionAgent steps executed in sequence as expected, and the translator was not called. The response was well structured and aligned with the briefing template provided.
@@ -83,6 +85,7 @@ The third test used a modified prompt with slang, requesting a briefing on Orion
 Future work will involve testing with a larger and more complex suite of questions, such as those available through Giskard Scan, to further evaluate system performance under challenging conditions.
 
 3. **Security Testing**
+
 Security leaks of sensitive information from the company database could cause severe impacts and even non-legal repercussions for the consulting firm. To test against this risk, we designed three prompts with prompt injection strategies, aiming to jailbreak the system, bypass content filters, or override the model’s safeguards.
 
 The first strategy was a direct reveal approach, which attempted to bypass safeguards by directly asking for sensitive information. In this case, the names and descriptions of sensitive projects were not disclosed, and the application returned a “non-reply” rejection. This shows the strength of the in-built safeguards of the underlying LLM (OpenAI GPT-4o-mini).
@@ -92,6 +95,7 @@ The second strategy reframed the request as a contextual need by positioning it 
 The third strategy involved obfuscation, where the prompt was deliberately made vague in an attempt to trick the system into revealing sensitive details. Despite this, the application only included safe information and produced a well-structured briefing note. This highlights the effectiveness of the agent prompting strategy in ensuring responsible and reliable outputs.
 
 4. **Translational Accuracy**
+
 Translational accuracy is an important metric because translations must be reliable and coherent for non-English-speaking consultants and clients to effectively communicate based on factual company information.
 
 The ROUGE scores for translation were relatively high at around 70%. This is impressive given that the translate_document() function was only a mocked function, relying on the base GPT-4o-mini model. These results highlight the strong translation capabilities of the underlying LLM.
@@ -132,6 +136,7 @@ python generate.py
 
 ---
 ## Content
+```
 .
 ├── docs/                                 # Simulated company document store (.pdf files)
 ├── notebooks/                            # Development notebooks
@@ -139,3 +144,4 @@ python generate.py
 ├── generate.py                           # Script to generate mock .pdfs simulating internal DB
 ├── requirements.txt                      # Python dependencies
 └── README.md                             # Project documentation
+```
