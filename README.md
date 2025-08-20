@@ -23,7 +23,6 @@ Follow these steps in the specified order to run the scripts successfully:
 ### **1. Clone the Repository**  
 ```bash
 git clone https://github.com/jinkett99/fascinating-things.git
-cd great-things
 ```
 
 ### **2. Install Dependencies**  
