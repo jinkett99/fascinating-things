@@ -147,8 +147,11 @@ python generate.py
 ```
 .
 ├── docs/                                 # Simulated company document store (.pdf files)
-├── notebooks/                            # Development notebooks
-│   └── 0.01-jk-experiments.ipynb         # Agent + tools + LLM integration & Evaluation Tests
+├── notebooks/                            # Development notebooks and red-teaming resources
+│   ├── 0.01-jk-experiments.ipynb         # Agent + tools + LLM integration & evaluation tests
+│   ├── test.txt                          # Adversarial prompts and categories for scoring trials
+│   ├── injection_test.py                 # Trial scoring function for prompt injection red-teaming
+│   └── injection_results/                # Output results from prompt injection & security testing
 ├── generate.py                           # Script to generate mock .pdfs simulating internal DB
 ├── requirements.txt                      # Python dependencies
 └── README.md                             # Project documentation
