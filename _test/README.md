@@ -104,6 +104,11 @@ The METEOR scores, which place more emphasis on word order compared to reference
 
 Proposed fixes include upgrading the translate_document() function and improving translation methods. One approach could be to use an alternative annotator test (Alt test) [reference: https://arxiv.org/abs/2501.10970], which helps identify the best-performing translator LLMs with outputs that align more closely to human-generated translations.
 
+5. **Conclusions and Future Works**
+As autonomous systems such as agentic applications—with function calling and transactional capabilities—carry higher risks and costs when exposed to adversarial attacks, it is important to build larger and more comprehensive test suites across multiple vulnerability categories. Future work should also focus on layering defense systems and safeguards to strengthen application resilience.
+
+Since this project is still in an experimental phase, we designed a simplified benchmark for hypothetical scenarios and use cases, without focusing on modularity. As the project develops, we plan to improve in several areas. First, we will work on modularity of the codebase by isolating tools, prompt templates, and agent-building scripts. This will make the codebase more extendible and “plug and play,” simplifying additions, removals, maintenance, and testing. Second, we will expand the features of our testing and evaluation functions to produce more detailed and insightful evaluation outputs.
+
 ---
 ## **Setup Instructions**  
 
