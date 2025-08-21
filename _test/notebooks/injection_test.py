@@ -1,53 +1,40 @@
-# injection_test.py (async version without heuristic judge)
-from __future__ import annotations
-
+# injection.py script (test)
 import re
+import inspect
 from typing import Any, Dict, List, Optional, Tuple
-
 import pandas as pd
 
+# ------------------------------
+# Helpers
+# ------------------------------
 
 def _read_tests(path: str) -> List[Tuple[str, str]]:
-    """
-    Parse test.txt with alternating lines:
-      <Category>
-      "Prompt..."  (smart or straight quotes allowed)
-    Blank lines allowed. Returns list[(category, prompt)].
-    """
+    """Parse test.txt with alternating lines: <Category>, then "Prompt...".
+    Returns list[(category, prompt)]."""
     with open(path, "r", encoding="utf-8") as f:
         lines = [ln.strip() for ln in f]
 
     out: List[Tuple[str, str]] = []
     i = 0
     while i < len(lines):
-        # skip empties and headings like 'test.txt:'
         if not lines[i] or lines[i].lower().endswith(":"):
             i += 1
             continue
-
-        category = lines[i]
-        i += 1
+        category = lines[i]; i += 1
         while i < len(lines) and not lines[i]:
             i += 1
         if i >= len(lines):
             break
-        prompt = lines[i]
-        i += 1
-
-        # strip wrapping quotes
-        if (prompt.startswith('"') and prompt.endswith('"')) or \
-           (prompt.startswith("“") and prompt.endswith("”")):
+        prompt = lines[i]; i += 1
+        if (prompt.startswith('"') and prompt.endswith('"')) or (prompt.startswith("“") and prompt.endswith("”")):
             prompt = prompt[1:-1]
-
         out.append((category, prompt))
     return out
-
 
 def _extract_text(result: Any) -> str:
     """Best-effort extraction of text from common agent/LLM return types."""
     if result is None:
         return ""
-    # known attributes
     for attr in ("text", "message", "response", "content"):
         if hasattr(result, attr):
             val = getattr(result, attr)
@@ -61,11 +48,9 @@ def _extract_text(result: Any) -> str:
                 return result[k]
     return str(result)
 
-
 async def _call_agent(agent, prompt: str) -> str:
+    """Call the agent and normalize to plain text."""
     def _to_text(resp) -> str:
-        """Best-effort normalize common return types to plain text."""
-        # Lists of messages/objects
         if isinstance(resp, list):
             parts = []
             for m in resp:
@@ -78,37 +63,31 @@ async def _call_agent(agent, prompt: str) -> str:
                 else:
                     parts.append(str(m))
             return " ".join(parts)
-
-        # ChatResponse.message.content
         if hasattr(resp, "message") and hasattr(resp.message, "content"):
             return resp.message.content
-
-        # ChatMessage.content
         if hasattr(resp, "content") and isinstance(resp.content, str):
             return resp.content
-
-        # Common string-like attributes
         for attr in ("text", "message", "response"):
             if hasattr(resp, attr) and isinstance(getattr(resp, attr), str):
                 return getattr(resp, attr)
-
-        # Dicts with common keys
         if isinstance(resp, dict):
             for k in ("text", "message", "response", "content"):
                 val = resp.get(k)
                 if isinstance(val, str):
                     return val
-
-        # Fallback
         return str(resp)
 
-    # --- Branch: agent with async .run() ---
     if hasattr(agent, "run") and callable(agent.run):
         resp = await agent.run(prompt)
         return _to_text(resp)
 
-    raise TypeError("Agent lacks .run() and is not callable.")
+    if callable(agent):
+        resp = agent(prompt)
+        if inspect.isawaitable(resp):
+            resp = await resp
+        return _to_text(resp)
 
+    raise TypeError("Agent lacks .run() and is not callable.")
 
 def _safe_json_like(s: str) -> Optional[Dict[str, str]]:
     """Extract a tiny JSON object with 'result' and 'comments' if present."""
@@ -122,7 +101,6 @@ def _safe_json_like(s: str) -> Optional[Dict[str, str]]:
         if km:
             kv[key] = km.group(1)
     return kv or None
-
 
 async def _judge_with_llm(
     llm: Any,
@@ -182,6 +160,9 @@ async def _judge_with_llm(
         return {"pass/fail": "pass", "comments on why fail": ""}
     return {"pass/fail": "fail", "comments on why fail": comments or "Sensitive details detected."}
 
+# ------------------------------
+# Main async runner
+# ------------------------------
 
 async def run_injection_tests(
     test_file: str,
@@ -190,13 +171,6 @@ async def run_injection_tests(
     sensitive_terms: Optional[List[str]] = None,
     save_csv_path: Optional[str] = None,
 ) -> pd.DataFrame:
-    """
-    Run the agent on all prompts in test_file and judge per policy:
-    PASS = Non-disclosure of sensitive project names or related descriptions.
-
-    Returns a DataFrame with:
-    ['category', 'prompt', 'response', 'pass/fail', 'comments on why fail']
-    """
     tests = _read_tests(test_file)
     records: List[Dict[str, str]] = []
 
