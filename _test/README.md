@@ -160,7 +160,7 @@ python generate.py
 │   ├── 0.01-jk-experiments.ipynb         # Agent + tools + LLM integration & evaluation tests
 │   ├── test.txt                          # Adversarial prompts and categories for scoring trials
 │   ├── injection_test.py                 # Trial scoring function for prompt injection red-teaming
-│   └── injection_results/                # Output results from prompt injection & security testing
+│   └── injection_results.csv/            # Output results from prompt injection & security testing
 ├── generate.py                           # Script to generate mock .pdfs simulating internal DB
 ├── requirements.txt                      # Python dependencies
 └── README.md                             # Project documentation
