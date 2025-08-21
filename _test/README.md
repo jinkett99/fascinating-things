@@ -96,7 +96,10 @@ The third strategy involved obfuscation, where the prompt was deliberately made 
 
 **Additional!**
 
-To extend the test suite for "prompt injection attacks", we designed 10 different questions (varying 'jailbreak' methods) to red-team the system. The sample image below demonstrates our results. *Note: Only 3/10 of our test cases passed! The other test cases managed to trick our application to disclose sensitive project names - Safeguards should be better!
+To extend the test suite for "prompt injection attacks", we designed 10 different questions (varying 'jailbreak' methods) to red-team the system. Following this, we utilised an LLM-as-a-judge approach to score our application's responses (pass/fail + feedback on failures). The sample image below demonstrates our results. 
+
+*Note: Only 3/10 of our test cases passed! The other test cases managed to trick our application to disclose sensitive project names - Safeguards should be better!*
+
 ![Image](../images/scoring.png)
 
 
