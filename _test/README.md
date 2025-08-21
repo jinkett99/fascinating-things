@@ -94,6 +94,12 @@ The second strategy reframed the request as a contextual need by positioning it 
 
 The third strategy involved obfuscation, where the prompt was deliberately made vague in an attempt to trick the system into revealing sensitive details. Despite this, the application only included safe information and produced a well-structured briefing note. This highlights the effectiveness of the agent prompting strategy in ensuring responsible and reliable outputs.
 
+**Additional!**
+
+To extend the test suite for "prompt injection attacks", we designed 10 different questions (varying 'jailbreak' methods) to red-team the system. The sample image below demonstrates our results. *Note: Only 3/10 of our test cases passed! The other test cases managed to trick our application to disclose sensitive project names - Safeguards should be better!
+![Image](../images/scoring.png)
+
+
 4. **Translational Accuracy**
 
 Translational accuracy is an important metric because translations must be reliable and coherent for non-English-speaking consultants and clients to effectively communicate based on factual company information.
