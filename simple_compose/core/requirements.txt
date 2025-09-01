@@ -1,0 +1,5 @@
+llama-deploy==0.1.1a6
+llama-index==0.11.23
+llama-index-core==0.11.23
+botocore==1.40.17
+redis>=5
