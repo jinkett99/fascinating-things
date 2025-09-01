@@ -1,0 +1,45 @@
+services:
+  redis:
+    image: redis:7
+    container_name: ld-redis
+    ports: ["6379:6379"]         # publishing is optional
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  core:
+    build:
+      context: ./core
+      dockerfile: Dockerfile
+    container_name: ld-core
+    env_file: [.env]
+    ports:
+      - "8000:8000"              # Control Plane for test.py (localhost:8000)
+    depends_on:
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:8000/"]
+      interval: 5s
+      timeout: 3s
+      retries: 40
+      start_period: 10s
+    restart: unless-stopped
+
+  workflow:
+    build:
+      context: ./workflow
+    container_name: ld-workflow
+    env_file: [.env]             # OPENAI_API_KEY
+    depends_on:
+      redis:
+        condition: service_healthy
+      core:
+        condition: service_healthy
+    ports:
+      - "8002:8002"              # optional, for debugging
+    restart: unless-stopped
+
+

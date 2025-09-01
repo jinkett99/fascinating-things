@@ -12,8 +12,10 @@ An Agentic AI exploration repository - Run mostly with the awesome LlamaIndex
 5. Customising Multi-Agent Workflow for Digital Twinning in Job Search Strategy. 
 
 ---
-## **Related Articles**
-**Medium Article:** https://medium.com/@jinkett99/part-iii-lets-explore-llamaindex-events-workflows-and-agents-490584516c2d
+## Related Articles
+
+- [**Let’s Explore — LlamaIndex Events, Workflows and Agents**](https://medium.com/@jinkett99/part-iii-lets-explore-llamaindex-events-workflows-and-agents-490584516c2d)  
+- [**LlamaIndex ReAct Workflows — Are we thinking enough?**](https://medium.com/@jinkett99/part-iv-llamaindex-react-workflows-are-we-thinking-enough-232cd44a6677)
 
 ---
 ## **Setup Instructions**  

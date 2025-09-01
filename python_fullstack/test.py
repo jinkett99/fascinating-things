@@ -1,17 +1,21 @@
+# check_status.py
+
+import os
 import asyncio
-from llama_deploy.client import Client
+import llama_deploy
 
-async def main():
+# Set `disable_ssl` to False with an environment variable
+os.environ["LLAMA_DEPLOY_DISABLE_SSL"] = "False"
 
-    client = Client(api_server_url="http://localhost:4501", timeout=10)
 
-    # create a session (async)
-    session = await client.core.sessions.create()
-
-    # run your service
-    result = await session.run("function_calling_agent", input="Hello from SG!")
-    print(result)
+async def check_status():
+    # Pass other config settings to the Client constructor
+    client = llama_deploy.Client(
+        api_server_url="http://localhost:4501", timeout=10
+    )
+    status = await client.apiserver.status()
+    print(status)
 
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    asyncio.run(check_status())

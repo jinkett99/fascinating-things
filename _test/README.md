@@ -132,6 +132,7 @@ python generate.py
 
 ---
 ## Content
+
 .
 ├── docs/                                 # Simulated company document store (.pdf files)
 ├── notebooks/                            # Development notebooks
